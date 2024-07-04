@@ -1,4 +1,4 @@
-FROM rbanffy/simh-base:latest
+FROM debian:testing-slim
 
 LABEL maintainer="Ricardo Bánffy <rbanffy@gmail.com>"
 
