@@ -9,8 +9,6 @@ ARCHITECTURES = amd64 arm64 arm/v6 arm/v7 s390x ppc64le
 BRANCH = $(shell git branch --show-current)
 
 ifeq ($(BRANCH),main)
-	IMAGE_TAG = stable
-else ifeq ($(BRANCH),develop)
 	IMAGE_TAG = latest
 else
 	IMAGE_TAG = $(BRANCH)
