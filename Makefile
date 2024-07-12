@@ -13,6 +13,7 @@ ifeq ($(BRANCH),main)
 else
 	IMAGE_TAG = $(BRANCH)
 endif
+@echo "Building image with tag: ${IMAGE_TAG}"
 
 define PRINT_HELP_PYSCRIPT
 import re, sys
