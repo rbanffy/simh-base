@@ -2,6 +2,8 @@ FROM debian:testing-slim
 
 LABEL maintainer="Ricardo Bánffy <rbanffy@gmail.com>"
 
+ARG QEMU_CPU
+
 COPY simh-master /simh
 
 RUN DEBIAN_FRONTEND=noninteractive \
@@ -12,7 +14,6 @@ RUN DEBIAN_FRONTEND=noninteractive \
     build-essential \
     cmake \
     cmake-data \
-    gcc-14 \
     libedit-dev \
     libegl1-mesa-dev \
     libfreetype6-dev \
@@ -25,14 +26,13 @@ RUN DEBIAN_FRONTEND=noninteractive \
     libvdeplug-dev \
     pkg-config && \
     cd /simh && \
-    # Build with GCC-14
-    CC=gcc-14 cmake/cmake-builder.sh -f unix && \
+    cmake/cmake-builder.sh -f unix && \
+    # Install the binaries
     mv -v /simh/BIN/* /usr/local/bin && \
     # Remove the build reqirements
     apt-get -y purge \
     build-essential \
     cmake-data \
-    gcc-14 \
     libedit-dev \
     libegl1-mesa-dev \
     libfreetype6-dev \
