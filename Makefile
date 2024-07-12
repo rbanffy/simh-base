@@ -46,7 +46,7 @@ build_arm64: simh-master ## Builds the Docker image for arm64
 	docker build -t ${USER}/simh-base:${IMAGE_TAG}-arm64 --platform=linux/arm64 --file ./Dockerfile --progress plain .
 
 build_armv6: simh-master ## Builds the Docker image for armv6
-	docker build -t ${USER}/simh-base:${IMAGE_TAG}-armv6 --platform=linux/arm/v6 --file ./Dockerfile --progress plain .
+	docker build --build-arg QEMU_CPU=arm1176 -t ${USER}/simh-base:${IMAGE_TAG}-armv6 --platform=linux/arm/v6 --progress=plain .
 
 build_armv7: simh-master ## Builds the Docker image for armv7
 	docker build -t ${USER}/simh-base:${IMAGE_TAG}-armv7 --platform=linux/arm/v7 --file ./Dockerfile --progress plain .
