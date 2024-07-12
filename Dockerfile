@@ -5,10 +5,10 @@ LABEL maintainer="Ricardo Bánffy <rbanffy@gmail.com>"
 COPY simh-master /simh
 
 RUN DEBIAN_FRONTEND=noninteractive \
-    apt update && \
-    apt -y full-upgrade && \
+    apt-get update && \
+    apt-get -y full-upgrade && \
     # Install build requirements
-    apt install -y --no-install-recommends \
+    apt-get install -y --no-install-recommends \
     build-essential \
     cmake \
     cmake-data \
@@ -29,7 +29,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
     CC=gcc-14 cmake/cmake-builder.sh -f unix && \
     mv -v /simh/BIN/* /usr/local/bin && \
     # Remove the build reqirements
-    apt -y purge \
+    apt-get -y purge \
     build-essential \
     cmake-data \
     gcc-14 \
