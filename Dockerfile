@@ -6,7 +6,7 @@ COPY simh-master /simh
 
 RUN DEBIAN_FRONTEND=noninteractive \
     apt update && \
-    # apt upgrade -y && \
+    apt upgrade -y && \
     apt install -y --no-install-recommends build-essential cmake && \
     cd /simh && \
     sh .travis/deps.sh linux && \
