@@ -1,4 +1,4 @@
-FROM debian:testing-slim
+FROM debian:stable-slim
 
 LABEL maintainer="Ricardo Bánffy <rbanffy@gmail.com>"
 
