@@ -39,22 +39,22 @@ simh-master: master.zip
 	unzip master.zip
 
 build_amd64: simh-master ## Builds the Docker image for amd64
-	docker build -t ${USER}/simh-base:${IMAGE_TAG}-amd64 --platform=linux/amd64 --file ./Dockerfile --progress plain .
+	docker build -t ${USER}/simh-base:${IMAGE_TAG}-amd64 --platform=linux/amd64 --provenance false --file ./Dockerfile --progress plain .
 
 build_arm64: simh-master ## Builds the Docker image for arm64
-	docker build -t ${USER}/simh-base:${IMAGE_TAG}-arm64 --platform=linux/arm64 --file ./Dockerfile --progress plain .
+	docker build -t ${USER}/simh-base:${IMAGE_TAG}-arm64 --platform=linux/arm64 --provenance false --file ./Dockerfile --progress plain .
 
 build_armv6: simh-master ## Builds the Docker image for armv6
-	docker build -t ${USER}/simh-base:${IMAGE_TAG}-armv6 --platform=linux/arm/v6 --file ./Dockerfile --progress plain .
+	docker build -t ${USER}/simh-base:${IMAGE_TAG}-armv6 --platform=linux/arm/v6 --provenance false --file ./Dockerfile --progress plain .
 
 build_armv7: simh-master ## Builds the Docker image for armv7
-	docker build -t ${USER}/simh-base:${IMAGE_TAG}-armv7 --platform=linux/arm/v7 --file ./Dockerfile --progress plain .
+	docker build -t ${USER}/simh-base:${IMAGE_TAG}-armv7 --platform=linux/arm/v7 --provenance false --file ./Dockerfile --progress plain .
 
 build_ppc64le: simh-master ## Builds the Docker image for ppc64le
-	docker build -t ${USER}/simh-base:${IMAGE_TAG}-ppc64le --platform=linux/ppc64le --file ./Dockerfile --progress plain .	
+	docker build -t ${USER}/simh-base:${IMAGE_TAG}-ppc64le --platform=linux/ppc64le --provenance false --file ./Dockerfile --progress plain .	
 
 build_s390x: simh-master ## Builds the Docker image for s390x
-	docker build -t ${USER}/simh-base:${IMAGE_TAG}-s390x --platform=linux/s390x --file ./Dockerfile --progress plain .
+	docker build -t ${USER}/simh-base:${IMAGE_TAG}-s390x --platform=linux/s390x --provenance false --file ./Dockerfile --progress plain .
 
 build: build_amd64 build_arm64 build_armv6 build_armv7 build_ppc64le build_s390x ## Builds the Docker images
 
