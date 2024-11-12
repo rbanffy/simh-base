@@ -19,7 +19,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
     libfreetype6-dev \
     libgles2-mesa-dev \
     libpcap-dev \
-    libpcre3-dev \
+    libpcre2-dev \
     libpng-dev \
     libsdl2-dev \
     libsdl2-ttf-dev \
@@ -38,7 +38,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
     libfreetype6-dev \
     libgles2-mesa-dev \
     libpcap-dev \
-    libpcre3-dev \
+    libpcre2-dev \
     libpng-dev \
     libsdl2-dev \
     libsdl2-ttf-dev \
