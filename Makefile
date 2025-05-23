@@ -12,6 +12,11 @@ PROVENANCE_FLAG =
 
 BRANCH = $(shell git branch --show-current)
 
+# Verify required tools are installed
+REQUIRED_BINS := docker wget unzip
+$(foreach bin,$(REQUIRED_BINS),\
+    $(if $(shell command -v $(bin) 2> /dev/null),,$(error Please install `$(bin)`)))
+
 ifeq ($(BRANCH),main)
 	IMAGE_TAG = latest
 else
