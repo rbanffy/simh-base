@@ -4,7 +4,7 @@
 
 SHELL = /bin/sh
 BUILD_DIR = build
-
+DOCKER_IMAGE ?= $(USER)/simh-base
 ARCHITECTURES = amd64 arm64 arm/v6 arm/v7 s390x ppc64le
 
 BRANCH = $(shell git branch --show-current)
