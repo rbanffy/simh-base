@@ -39,13 +39,18 @@ help: ## Displays this message.
 	@python3 -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
 clean: ## Cleans the build directory
-	rm -rfv simh-master master.zip
+	@rm -rfv simh-master master.zip
 
 master.zip:
-	wget -c https://github.com/open-simh/simh/archive/refs/heads/master.zip
+	@echo "Downloading SIMH source code..."
+	@wget -c https://github.com/open-simh/simh/archive/refs/heads/master.zip || \
+		(echo "Failed to download source code"; exit 1)
+	@touch master.zip
 
 simh-master: master.zip
-	unzip master.zip
+	@echo "Extracting source code..."
+	@unzip -o master.zip || (echo "Failed to extract archive"; exit 1)
+	@touch simh-master
 
 build_amd64: simh-master ## Builds the Docker image for amd64
 	docker build -t ${USER}/simh-base:${IMAGE_TAG}-amd64 --platform=linux/amd64 --provenance false --file ./Dockerfile --progress plain .
