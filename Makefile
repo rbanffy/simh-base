@@ -53,22 +53,22 @@ simh-master: master.zip
 	@touch simh-master
 
 build_amd64: simh-master ## Builds the Docker image for amd64
-	docker build -t ${USER}/simh-base:${IMAGE_TAG}-amd64 --platform=linux/amd64 --provenance false --file ./Dockerfile --progress plain .
+	docker build -t ${DOCKER_IMAGE}:${IMAGE_TAG}-amd64 --platform=linux/amd64 ${PROVENANCE_FLAG} --file ./Dockerfile --progress plain .
 
 build_arm64: simh-master ## Builds the Docker image for arm64
-	docker build -t ${USER}/simh-base:${IMAGE_TAG}-arm64 --platform=linux/arm64 --provenance false --file ./Dockerfile --progress plain .
+	docker build -t ${DOCKER_IMAGE}:${IMAGE_TAG}-arm64 --platform=linux/arm64 ${PROVENANCE_FLAG} --file ./Dockerfile --progress plain .
 
 build_armv6: simh-master ## Builds the Docker image for armv6
-	docker build -t ${USER}/simh-base:${IMAGE_TAG}-armv6 --platform=linux/arm/v6 --provenance false --file ./Dockerfile --progress plain .
+	docker build -t ${DOCKER_IMAGE}:${IMAGE_TAG}-armv6 --platform=linux/arm/v6 ${PROVENANCE_FLAG} --file ./Dockerfile --progress plain .
 
 build_armv7: simh-master ## Builds the Docker image for armv7
-	docker build -t ${USER}/simh-base:${IMAGE_TAG}-armv7 --platform=linux/arm/v7 --provenance false --file ./Dockerfile --progress plain .
+	docker build -t ${DOCKER_IMAGE}:${IMAGE_TAG}-armv7 --platform=linux/arm/v7 ${PROVENANCE_FLAG} --file ./Dockerfile --progress plain .
 
 build_ppc64le: simh-master ## Builds the Docker image for ppc64le
-	docker build -t ${USER}/simh-base:${IMAGE_TAG}-ppc64le --platform=linux/ppc64le --provenance false --file ./Dockerfile --progress plain .	
+	docker build -t ${DOCKER_IMAGE}:${IMAGE_TAG}-ppc64le --platform=linux/ppc64le ${PROVENANCE_FLAG} --file ./Dockerfile --progress plain .	
 
 build_s390x: simh-master ## Builds the Docker image for s390x
-	docker build -t ${USER}/simh-base:${IMAGE_TAG}-s390x --platform=linux/s390x --provenance false --file ./Dockerfile --progress plain .
+	docker build -t ${DOCKER_IMAGE}:${IMAGE_TAG}-s390x --platform=linux/s390x ${PROVENANCE_FLAG} --file ./Dockerfile --progress plain .
 
 build: $(addprefix build_,$(subst /,,${ARCHITECTURES})) ## Builds Docker images for all architectures
 
