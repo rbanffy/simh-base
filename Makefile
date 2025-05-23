@@ -1,5 +1,6 @@
 .PHONY: help build clean push_images create_manifest build_amd64 build_arm64 build_armv6 build_armv7 build_ppc64le build_s390x
 .DEFAULT_GOAL := help
+.NOTPARALLEL:
 
 SHELL = /bin/sh
 BUILD_DIR = build
