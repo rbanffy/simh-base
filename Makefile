@@ -70,7 +70,7 @@ build_ppc64le: simh-master ## Builds the Docker image for ppc64le
 build_s390x: simh-master ## Builds the Docker image for s390x
 	docker build -t ${USER}/simh-base:${IMAGE_TAG}-s390x --platform=linux/s390x --provenance false --file ./Dockerfile --progress plain .
 
-build: build_amd64 build_arm64 build_armv6 build_armv7 build_ppc64le build_s390x ## Builds the Docker images
+build: $(addprefix build_,$(subst /,,${ARCHITECTURES})) ## Builds Docker images for all architectures
 
 push_images: build ## Uploads the local docker images
 	docker image push ${USER}/simh-base:${IMAGE_TAG}-amd64
