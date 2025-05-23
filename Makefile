@@ -73,19 +73,13 @@ build_s390x: simh-master ## Builds the Docker image for s390x
 build: $(addprefix build_,$(subst /,,${ARCHITECTURES})) ## Builds Docker images for all architectures
 
 push_images: build ## Uploads the local docker images
-	docker image push ${USER}/simh-base:${IMAGE_TAG}-amd64
-	docker image push ${USER}/simh-base:${IMAGE_TAG}-arm64
-	docker image push ${USER}/simh-base:${IMAGE_TAG}-armv6
-	docker image push ${USER}/simh-base:${IMAGE_TAG}-armv7
-	docker image push ${USER}/simh-base:${IMAGE_TAG}-s390x
-	docker image push ${USER}/simh-base:${IMAGE_TAG}-ppc64le
+	@for arch in $(subst /,,${ARCHITECTURES}); do \
+		echo "Pushing ${DOCKER_IMAGE}:${IMAGE_TAG}-$$arch"; \
+		docker image push ${DOCKER_IMAGE}:${IMAGE_TAG}-$$arch || exit 1; \
+	done
 
-create_manifest: push_images ## Uploads the manifest
-	docker manifest create ${USER}/simh-base:${IMAGE_TAG} \
-		--amend ${USER}/simh-base:${IMAGE_TAG}-amd64 \
-		--amend ${USER}/simh-base:${IMAGE_TAG}-arm64 \
-		--amend ${USER}/simh-base:${IMAGE_TAG}-armv6 \
-		--amend ${USER}/simh-base:${IMAGE_TAG}-armv7 \
-		--amend ${USER}/simh-base:${IMAGE_TAG}-s390x \
-		--amend ${USER}/simh-base:${IMAGE_TAG}-ppc64le
-	docker manifest push ${USER}/simh-base:${IMAGE_TAG}
+push_manifest: push_images ## Creates and uploads the manifest
+	@echo "Creating manifest for ${DOCKER_IMAGE}:${IMAGE_TAG}"
+	docker manifest create ${DOCKER_IMAGE}:${IMAGE_TAG} \
+		$(foreach arch,$(subst /,,${ARCHITECTURES}),--amend ${DOCKER_IMAGE}:${IMAGE_TAG}-$(arch))
+	docker manifest push ${DOCKER_IMAGE}:${IMAGE_TAG}
