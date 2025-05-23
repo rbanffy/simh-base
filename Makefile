@@ -7,6 +7,9 @@ BUILD_DIR = build
 DOCKER_IMAGE ?= $(USER)/simh-base
 ARCHITECTURES = amd64 arm64 arm/v6 arm/v7 s390x ppc64le
 
+#PROVENANCE_FLAG = --provenance false
+PROVENANCE_FLAG = 
+
 BRANCH = $(shell git branch --show-current)
 
 ifeq ($(BRANCH),main)
