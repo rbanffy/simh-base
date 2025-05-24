@@ -41,7 +41,7 @@ help: ## Displays this message.
 clean: ## Cleans the build directory
 	@rm -rfv simh-master master.zip
 
-master.zip:
+master.zip: ## Downloads the SIMH source code
 	@echo "Downloading SIMH source code..."
 	@wget -c https://github.com/open-simh/simh/archive/refs/heads/master.zip || \
 		(echo "Failed to download source code"; exit 1)
