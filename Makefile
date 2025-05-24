@@ -1,6 +1,6 @@
 .PHONY: help build clean push_images create_manifest build_amd64 build_arm64 build_armv6 build_armv7 build_ppc64le build_s390x
 .DEFAULT_GOAL := help
-.NOTPARALLEL:
+# .NOTPARALLEL:
 
 SHELL = /bin/sh
 BUILD_DIR = build
@@ -39,36 +39,43 @@ help: ## Displays this message.
 	@python3 -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
 clean: ## Cleans the build directory
-	@rm -rfv simh-master master.zip
+	@rm -rfv simh-master master.zip ${BUILD_DIR}
+# TODO: remove relevant Docker images
 
 master.zip: ## Downloads the SIMH source code
 	@echo "Downloading SIMH source code..."
 	@wget -c https://github.com/open-simh/simh/archive/refs/heads/master.zip || \
 		(echo "Failed to download source code"; exit 1)
-	@touch master.zip
+#	@touch master.zip
 
 simh-master: master.zip
 	@echo "Extracting source code..."
 	@unzip -o master.zip || (echo "Failed to extract archive"; exit 1)
-	@touch simh-master
+#	@touch simh-master
 
 build_amd64: simh-master ## Builds the Docker image for amd64
 	docker build -t ${DOCKER_IMAGE}:${IMAGE_TAG}-amd64 --platform=linux/amd64 ${PROVENANCE_FLAG} --file ./Dockerfile --progress plain .
+	@touch ${BUILD_DIR}/build_amd64
 
 build_arm64: simh-master ## Builds the Docker image for arm64
 	docker build -t ${DOCKER_IMAGE}:${IMAGE_TAG}-arm64 --platform=linux/arm64 ${PROVENANCE_FLAG} --file ./Dockerfile --progress plain .
+	@touch ${BUILD_DIR}/build_arm64
 
 build_armv6: simh-master ## Builds the Docker image for armv6
 	docker build -t ${DOCKER_IMAGE}:${IMAGE_TAG}-armv6 --platform=linux/arm/v6 ${PROVENANCE_FLAG} --file ./Dockerfile --progress plain .
+	@touch ${BUILD_DIR}/build_armv6
 
 build_armv7: simh-master ## Builds the Docker image for armv7
 	docker build -t ${DOCKER_IMAGE}:${IMAGE_TAG}-armv7 --platform=linux/arm/v7 ${PROVENANCE_FLAG} --file ./Dockerfile --progress plain .
+	@touch ${BUILD_DIR}/build_armv7
 
 build_ppc64le: simh-master ## Builds the Docker image for ppc64le
 	docker build -t ${DOCKER_IMAGE}:${IMAGE_TAG}-ppc64le --platform=linux/ppc64le ${PROVENANCE_FLAG} --file ./Dockerfile --progress plain .	
+	@touch ${BUILD_DIR}/build_ppc64le
 
 build_s390x: simh-master ## Builds the Docker image for s390x
 	docker build -t ${DOCKER_IMAGE}:${IMAGE_TAG}-s390x --platform=linux/s390x ${PROVENANCE_FLAG} --file ./Dockerfile --progress plain .
+	@touch ${BUILD_DIR}/build_s390x
 
 build: $(addprefix build_,$(subst /,,${ARCHITECTURES})) ## Builds Docker images for all architectures
 
