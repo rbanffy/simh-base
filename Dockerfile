@@ -26,7 +26,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
     libvdeplug-dev \
     pkg-config && \
     cd /simh && \
-    cmake/cmake-builder.sh -c Release -f unix --notest -p && \
+    make altairz80 && \
     # Install the binaries
     mv -v /simh/BIN/* /usr/local/bin && \
     # Remove the build reqirements
